@@ -13,3 +13,9 @@ enum ViewStates{
     case failure(Error)
     case loading
 }
+
+@objc enum UserList:Int{
+    case followers
+    case following
+    case repo
+}

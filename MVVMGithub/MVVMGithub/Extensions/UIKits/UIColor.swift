@@ -40,3 +40,17 @@ extension UIColor {
     }
 }
 
+func generateRandomLightColors() -> [UIColor] {
+    var colors: [UIColor] = []
+
+    for _ in 1...6 {
+        let randomRed = CGFloat.random(in: 0.5...1.0)
+        let randomGreen = CGFloat.random(in: 0.5...1.0)
+        let randomBlue = CGFloat.random(in: 0.5...1.0)
+
+        let lightColor = UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+        colors.append(lightColor)
+    }
+
+    return colors
+}

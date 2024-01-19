@@ -7,9 +7,6 @@
 
 import UIKit
 
-struct GithubUserModel: Codable {
-    let GithubUsersData: [UsersData]
-}
 
 struct UsersData:Codable {
     let avatarURL:String?
@@ -17,6 +14,6 @@ struct UsersData:Codable {
     
     enum CodingKeys:String,CodingKey{
        case avatarURL = "avatar_url"
-        case login
+       case login
     }
 }

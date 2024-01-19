@@ -13,18 +13,30 @@ final class Services{
     
     let APIURL = "https://api.github.com"
     
-    func UsersList(_ completion:@escaping(Result<[UsersData], Error>) -> Void){
-        guard let url = URL(string: APIURL+CompleteLink.USER.rawValue) else {
+    //Handle Users List
+    func UsersList(apiType:UserList,_ completion:@escaping(Result<[UsersData], Error>) -> Void){
+        var apiLink = ""
+        
+        switch apiType {
+        case .followers:
+            apiLink = CompleteLink.followers.rawValue
+        case .following:
+            apiLink = CompleteLink.following.rawValue
+        case .repo:
+            apiLink = CompleteLink.repo.rawValue
+        }
+        
+        guard let url = URL(string: APIURL+apiLink) else {
             completion(.failure(NSError(domain: "Url not working", code: 0)))
             return
         }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("Bearer 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", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("Bearer \(Constant.GithubAuthCode)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if let err = error {
-                print(#function, "🧨 Error: \(String(describing: error))")
+                print(#function, "🧨 Error: URL=> \(url)\n\(String(describing: error))")
                 completion(.failure(err))
             } else {
                 guard let data = data else{
@@ -35,7 +47,37 @@ final class Services{
                     print(#function, "📡 Data: \(String(describing: HandleData))")
                     completion(.success(HandleData))
                 } catch {
-                    print(#function, "🧨 Error on handle data: \(String(describing: error))")
+                    print(#function, "🧨 Error on handle data: URL=> \(url)\n\(String(describing: error))")
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    
+    //Handle Profile
+    func UserProfile(_ completion:@escaping(Result<GithubProfileModel, Error>) -> Void){
+        guard let url = URL(string: APIURL+CompleteLink.PROFILE.rawValue) else {
+            completion(.failure(NSError(domain: "Url not working", code: 0)))
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("Bearer \(Constant.GithubAuthCode)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let err = error {
+                print(#function, "🧨 Error: URL=> \(url)\n\(String(describing: error))")
+                completion(.failure(err))
+            } else {
+                guard let data = data else{
+                    return
+                }
+                do {
+                    let HandleData = try JSONDecoder().decode(GithubProfileModel.self, from: data)
+                    print(#function, "📡 Data: \(String(describing: HandleData))")
+                    completion(.success(HandleData))
+                } catch {
+                    print(#function, "🧨 Error on handle data: URL=> \(url)\n\(String(describing: error))")
                     completion(.failure(error))
                 }
             }
@@ -72,4 +114,8 @@ final class Services{
 
 enum CompleteLink:String{
     case USER = "/users"
+    case PROFILE = "/user"
+    case followers = "/users/Innovatewithapple/followers"
+    case following = "/users/Innovatewithapple/following"
+    case repo = "/Innovatewithapple/repos"
 }

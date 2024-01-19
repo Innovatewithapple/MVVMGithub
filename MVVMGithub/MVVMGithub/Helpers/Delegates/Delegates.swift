@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GithubDelegates:AnyObject {
-    func GetUSERSList(state:ViewStates)
+    func GetResponse(state:ViewStates)
 }

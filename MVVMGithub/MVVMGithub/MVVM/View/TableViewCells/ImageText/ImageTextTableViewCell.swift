@@ -21,12 +21,12 @@ class ImageTextTableViewCell: UITableViewCell {
     
     func configure(info:(avatar:String?,name:String?)){
         //Background
-        self.mainView.backgroundColor = UIColor(hexString: Constant().BackgroundColor)
-        self.contentView.backgroundColor = UIColor(hexString: Constant().BackgroundColor)
+        self.mainView.backgroundColor = UIColor(hexString: Constant.BackgroundColor)
+        self.contentView.backgroundColor = UIColor(hexString: Constant.BackgroundColor)
         
         //Text
         self.labelValue.text = info.name?.uppercased()
-        self.labelValue.textColor = UIColor(hexString: Constant().TextColor)
+        self.labelValue.textColor = UIColor(hexString: Constant.TextColor)
         self.labelValue.font = UIFont.systemFont(ofSize: 19.0, weight: .medium)
         
         //Image
@@ -35,7 +35,7 @@ class ImageTextTableViewCell: UITableViewCell {
             DispatchQueue.main.async {
                 self.img.image = image ?? nil
                 self.img.contentMode = .scaleAspectFill
-                self.img.addRoundedCorners(radius: self.img.bounds.width/2, borderWidth: 4, borderColor: UIColor(hexString: Constant().ThemeColor))
+                self.img.addRoundedCorners(radius: self.img.bounds.width/2, borderWidth: 4, borderColor: UIColor(hexString: Constant.ThemeColor))
             }
         }
     }

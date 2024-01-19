@@ -1,40 +1,43 @@
 //
-//  ViewController.swift
+//  FollowersViewController.swift
 //  MVVMGithub
 //
-//  Created by Himanshu vyas on 18/01/24.
+//  Created by Himanshu vyas on 19/01/24.
 //
 
 import UIKit
 
-class ViewController: UIViewController, GithubDelegates {
+class FollowersViewController: UIViewController, GithubDelegates {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel = GithubUsersViewModel()
-    
+    var APIType:UserList = .followers
+    var viewModel = GithubFollowersFollowingViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       HandleUserInterface()
+        self.HandleUserInterface()
     }
     
-    func GetUSERSList(state: ViewStates) {
+    func GetResponse(state: ViewStates) {
         DispatchQueue.main.async {
             switch state{
             case .success:
                 self.tableView.reloadData()
             case .idle:
                 break
-            case .failure(_):
-                print("Error")
+            case .failure(let err):
+                print("error:\(err)")
             case .loading:
-                print("loading")
+                print("Loading...")
             }
         }
     }
+    
 }
 
-extension ViewController:UITableViewDelegate, UITableViewDataSource {
+//MARK: - TableView
+extension FollowersViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -51,11 +54,11 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - Handle User-Interface
-extension ViewController{
+extension FollowersViewController{
     func HandleUserInterface() {
         HandleTableViewAndNavigation()
         viewModel.delegate = self
-        viewModel.loadModel()
+        viewModel.loadModel(API: self.APIType)
     }
     
     func HandleTableViewAndNavigation() {
