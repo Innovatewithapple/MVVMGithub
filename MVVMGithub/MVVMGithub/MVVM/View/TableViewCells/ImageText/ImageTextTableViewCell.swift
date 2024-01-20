@@ -15,11 +15,9 @@ class ImageTextTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-    
-        // Initialization code
     }
     
-    func configure(info:(avatar:String?,name:String?)){
+    func configure(info:(avatar:String?,name:String?),APIType:UserList){
         //Background
         self.mainView.backgroundColor = UIColor(hexString: Constant.BackgroundColor)
         self.contentView.backgroundColor = UIColor(hexString: Constant.BackgroundColor)
@@ -30,13 +28,21 @@ class ImageTextTableViewCell: UITableViewCell {
         self.labelValue.font = UIFont.systemFont(ofSize: 19.0, weight: .medium)
         
         //Image
-        
-        Services.sharedInstance.HandleImage(imageURL: info.avatar ?? "") { image in
-            DispatchQueue.main.async {
-                self.img.image = image ?? nil
-                self.img.contentMode = .scaleAspectFill
-                self.img.addRoundedCorners(radius: self.img.bounds.width/2, borderWidth: 4, borderColor: UIColor(hexString: Constant.ThemeColor))
+        switch APIType{
+        case .followers,.following:
+            Services.sharedInstance.HandleImage(imageURL: info.avatar ?? "") { image in
+                DispatchQueue.main.async {
+                    self.img.image = image ?? nil
+                    self.img.backgroundColor = .clear
+                    self.img.contentMode = .scaleAspectFill
+                    self.img.addRoundedCorners(radius: self.img.bounds.width/2, borderWidth: 4, borderColor: UIColor(hexString: Constant.ThemeColor))
+                }
             }
+        case .repo:
+            self.img.image = UIImage(named: "githubIcon")
+            self.img.backgroundColor = .white
+            self.img.contentMode = .scaleAspectFill
+            self.img.addRoundedCorners(radius: self.img.bounds.width/2, borderWidth: 4, borderColor: UIColor(hexString: Constant.ThemeColor))
         }
     }
 }

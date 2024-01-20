@@ -18,6 +18,7 @@
 		BC285B862B5AB141000BDD5C /* ProfileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC285B852B5AB141000BDD5C /* ProfileExtension.swift */; };
 		BC2BB4582B5A454C00890F38 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2BB4562B5A454C00890F38 /* TextTableViewCell.swift */; };
 		BC2BB4592B5A454C00890F38 /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC2BB4572B5A454C00890F38 /* TextTableViewCell.xib */; };
+		BC441A5E2B5BAE72002985DA /* GithubRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC441A5D2B5BAE72002985DA /* GithubRepositoryViewModel.swift */; };
 		BCAD58C52B5930C400D3A361 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C42B5930C400D3A361 /* AppDelegate.swift */; };
 		BCAD58C72B5930C400D3A361 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C62B5930C400D3A361 /* SceneDelegate.swift */; };
 		BCAD58C92B5930C400D3A361 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C82B5930C400D3A361 /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 		BC285B852B5AB141000BDD5C /* ProfileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileExtension.swift; sourceTree = "<group>"; };
 		BC2BB4562B5A454C00890F38 /* TextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
 		BC2BB4572B5A454C00890F38 /* TextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTableViewCell.xib; sourceTree = "<group>"; };
+		BC441A5D2B5BAE72002985DA /* GithubRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryViewModel.swift; sourceTree = "<group>"; };
 		BCAD58C12B5930C400D3A361 /* MVVMGithub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGithub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCAD58C42B5930C400D3A361 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCAD58C62B5930C400D3A361 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			children = (
 				BCEB150D2B59510000B723DC /* GithubFollowersFollowingViewModel.swift */,
 				BC285B762B5A8A9C000BDD5C /* GithubUserProfileModel.swift */,
+				BC441A5D2B5BAE72002985DA /* GithubRepositoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				BC285B7D2B5AAB74000BDD5C /* FollowersViewController.swift in Sources */,
 				BC285B712B5A4D5D000BDD5C /* UIImage.swift in Sources */,
 				BC285B7B2B5A9338000BDD5C /* UILabel.swift in Sources */,
+				BC441A5E2B5BAE72002985DA /* GithubRepositoryViewModel.swift in Sources */,
 				BCAD58C52B5930C400D3A361 /* AppDelegate.swift in Sources */,
 				BCAD58C72B5930C400D3A361 /* SceneDelegate.swift in Sources */,
 				BCEB151C2B5959EF00B723DC /* UITableView.swift in Sources */,

@@ -37,6 +37,6 @@ struct Constant{
     }
     
     //Auth
-    static let GithubAuthCode = "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"
+    static let GithubAuthCode = "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"
     static var UserName = ""
 }

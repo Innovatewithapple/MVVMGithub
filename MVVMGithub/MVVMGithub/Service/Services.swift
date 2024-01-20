@@ -13,7 +13,7 @@ final class Services{
     
     let APIURL = "https://api.github.com"
     
-    //Handle Users List
+    //Handle Users Follower/Following List
     func UsersList(apiType:UserList,_ completion:@escaping(Result<[UsersData], Error>) -> Void){
         var apiLink = ""
         
@@ -22,6 +22,45 @@ final class Services{
             apiLink = CompleteLink.followers.rawValue
         case .following:
             apiLink = CompleteLink.following.rawValue
+        case .repo:
+            break
+        }
+        
+        guard let url = URL(string: APIURL+apiLink) else {
+            completion(.failure(NSError(domain: "Url not working", code: 0)))
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("Bearer \(Constant.GithubAuthCode)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let err = error {
+                print(#function, "🧨 Error: URL=> \(url)\n\(String(describing: error))")
+                completion(.failure(err))
+            } else {
+                guard let data = data else{
+                    return
+                }
+                do {
+                    let HandleData = try JSONDecoder().decode([UsersData].self, from: data)
+                    print(#function, "📡 Data: \(String(describing: HandleData))")
+                    completion(.success(HandleData))
+                } catch {
+                    print(#function, "🧨 Error on handle data: URL=> \(url)\n\(String(describing: error))")
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    
+    //Handle Repository List
+    func RepoList(apiType:UserList,_ completion:@escaping(Result<[RepoData], Error>) -> Void){
+        var apiLink = ""
+        
+        switch apiType {
+        case .followers, .following:
+            break
         case .repo:
             apiLink = CompleteLink.repo.rawValue
         }
@@ -43,7 +82,7 @@ final class Services{
                     return
                 }
                 do {
-                    let HandleData = try JSONDecoder().decode([UsersData].self, from: data)
+                    let HandleData = try JSONDecoder().decode([RepoData].self, from: data)
                     print(#function, "📡 Data: \(String(describing: HandleData))")
                     completion(.success(HandleData))
                 } catch {
@@ -117,5 +156,5 @@ enum CompleteLink:String{
     case PROFILE = "/user"
     case followers = "/users/Innovatewithapple/followers"
     case following = "/users/Innovatewithapple/following"
-    case repo = "/Innovatewithapple/repos"
+    case repo = "/users/Innovatewithapple/repos"
 }

@@ -17,3 +17,14 @@ struct UsersData:Codable {
        case login
     }
 }
+
+
+struct RepoData:Codable{
+    let name:String
+    let htmlURL:String
+    
+    enum CodingKeys:String,CodingKey{
+        case name
+        case htmlURL = "html_url"
+    }
+}
