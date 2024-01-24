@@ -18,4 +18,20 @@ enum ViewStates{
     case followers
     case following
     case repo
+    case gists
+}
+
+enum NetworkLayer{
+    case serverError
+    case ResponseNil
+    case noInternet
+    case customError(String)
+    indirect case chainedError(NetworkLayer, NetworkLayer)
+}
+
+enum ViewStatus: CaseIterable{
+    case idle
+    case success
+    case failure
+    case loading
 }

@@ -19,6 +19,9 @@
 		BC2BB4582B5A454C00890F38 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2BB4562B5A454C00890F38 /* TextTableViewCell.swift */; };
 		BC2BB4592B5A454C00890F38 /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC2BB4572B5A454C00890F38 /* TextTableViewCell.xib */; };
 		BC441A5E2B5BAE72002985DA /* GithubRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC441A5D2B5BAE72002985DA /* GithubRepositoryViewModel.swift */; };
+		BC897E9C2B5FCF57008B502B /* FollowersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC897E9B2B5FCF57008B502B /* FollowersExtension.swift */; };
+		BC897E9E2B5FE268008B502B /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC897E9D2B5FE268008B502B /* ErrorModel.swift */; };
+		BC897EA12B5FE468008B502B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC897EA02B5FE468008B502B /* BaseViewController.swift */; };
 		BCAD58C52B5930C400D3A361 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C42B5930C400D3A361 /* AppDelegate.swift */; };
 		BCAD58C72B5930C400D3A361 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C62B5930C400D3A361 /* SceneDelegate.swift */; };
 		BCAD58C92B5930C400D3A361 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD58C82B5930C400D3A361 /* ViewController.swift */; };
@@ -49,6 +52,9 @@
 		BC2BB4562B5A454C00890F38 /* TextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
 		BC2BB4572B5A454C00890F38 /* TextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTableViewCell.xib; sourceTree = "<group>"; };
 		BC441A5D2B5BAE72002985DA /* GithubRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryViewModel.swift; sourceTree = "<group>"; };
+		BC897E9B2B5FCF57008B502B /* FollowersExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersExtension.swift; sourceTree = "<group>"; };
+		BC897E9D2B5FE268008B502B /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		BC897EA02B5FE468008B502B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BCAD58C12B5930C400D3A361 /* MVVMGithub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGithub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCAD58C42B5930C400D3A361 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCAD58C62B5930C400D3A361 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 		BC285B812B5AB0FE000BDD5C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC897E9F2B5FE43C008B502B /* BaseViewController */,
 				BC285B832B5AB123000BDD5C /* UserList */,
 				BC285B822B5AB107000BDD5C /* Profile */,
 			);
@@ -127,6 +134,7 @@
 		BC285B832B5AB123000BDD5C /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				BC897E9A2B5FCF32008B502B /* Extensions */,
 				BC285B7C2B5AAB74000BDD5C /* FollowersViewController.swift */,
 			);
 			path = UserList;
@@ -148,6 +156,22 @@
 				BCEB150A2B594C4800B723DC /* ViewModel */,
 			);
 			path = MVVM;
+			sourceTree = "<group>";
+		};
+		BC897E9A2B5FCF32008B502B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BC897E9B2B5FCF57008B502B /* FollowersExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BC897E9F2B5FE43C008B502B /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BC897EA02B5FE468008B502B /* BaseViewController.swift */,
+			);
+			path = BaseViewController;
 			sourceTree = "<group>";
 		};
 		BCAD58B82B5930C400D3A361 = {
@@ -189,6 +213,7 @@
 			children = (
 				BCAD58E22B593E0400D3A361 /* GithubUserModel.swift */,
 				BC285B782B5A8AC4000BDD5C /* GithubProfileModel.swift */,
+				BC897E9D2B5FE268008B502B /* ErrorModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +370,8 @@
 				BC285B6F2B5A4C1B000BDD5C /* UIColor.swift in Sources */,
 				BCAD58E62B59403000D3A361 /* Services.swift in Sources */,
 				BCAD58C92B5930C400D3A361 /* ViewController.swift in Sources */,
+				BC897E9E2B5FE268008B502B /* ErrorModel.swift in Sources */,
+				BC897E9C2B5FCF57008B502B /* FollowersExtension.swift in Sources */,
 				BCEB151E2B595A6400B723DC /* UITableViewCell.swift in Sources */,
 				BC285B6D2B5A4BAC000BDD5C /* Constant.swift in Sources */,
 				BC285B7D2B5AAB74000BDD5C /* FollowersViewController.swift in Sources */,
@@ -357,6 +384,7 @@
 				BC285B792B5A8AC4000BDD5C /* GithubProfileModel.swift in Sources */,
 				BC285B732B5A539E000BDD5C /* UIView.swift in Sources */,
 				BC2BB4582B5A454C00890F38 /* TextTableViewCell.swift in Sources */,
+				BC897EA12B5FE468008B502B /* BaseViewController.swift in Sources */,
 				BC285B772B5A8A9C000BDD5C /* GithubUserProfileModel.swift in Sources */,
 				BCEB15162B5958C000B723DC /* Delegates.swift in Sources */,
 				BCAD58E32B593E0400D3A361 /* GithubUserModel.swift in Sources */,
@@ -512,6 +540,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9S5PA67N8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVVMGithub/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -540,6 +569,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9S5PA67N8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVVMGithub/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

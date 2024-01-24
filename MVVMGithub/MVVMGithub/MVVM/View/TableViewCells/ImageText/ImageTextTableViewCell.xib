@@ -27,19 +27,20 @@
                                     <constraint firstAttribute="height" constant="50" id="hjd-C4-flr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx3-th-yc2">
-                                <rect key="frame" x="68" y="45.333333333333336" width="244" height="20.333333333333336"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx3-th-yc2">
+                                <rect key="frame" x="68" y="5" width="244" height="101"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="vx3-th-yc2" firstAttribute="top" secondItem="ROO-f2-ObQ" secondAttribute="top" constant="5" id="18z-FO-nwL"/>
                             <constraint firstItem="yz0-LY-6uB" firstAttribute="centerY" secondItem="ROO-f2-ObQ" secondAttribute="centerY" id="AvG-e1-mqD"/>
                             <constraint firstItem="yz0-LY-6uB" firstAttribute="leading" secondItem="ROO-f2-ObQ" secondAttribute="leading" constant="8" id="Mgn-IZ-AEf"/>
                             <constraint firstAttribute="trailing" secondItem="vx3-th-yc2" secondAttribute="trailing" constant="8" id="d9P-Rd-yho"/>
                             <constraint firstItem="vx3-th-yc2" firstAttribute="leading" secondItem="yz0-LY-6uB" secondAttribute="trailing" constant="10" id="hDh-0l-1q7"/>
-                            <constraint firstItem="vx3-th-yc2" firstAttribute="centerY" secondItem="ROO-f2-ObQ" secondAttribute="centerY" id="rSP-vt-N00"/>
+                            <constraint firstAttribute="bottom" secondItem="vx3-th-yc2" secondAttribute="bottom" constant="5" id="sH0-SW-Gqf"/>
                         </constraints>
                     </view>
                 </subviews>

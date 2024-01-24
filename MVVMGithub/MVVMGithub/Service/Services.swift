@@ -14,15 +14,15 @@ final class Services{
     let APIURL = "https://api.github.com"
     
     //Handle Users Follower/Following List
-    func UsersList(apiType:UserList,_ completion:@escaping(Result<[UsersData], Error>) -> Void){
+    func UsersList(url:String,apiType:UserList,_ completion:@escaping(Result<[UsersData], Error>) -> Void){
         var apiLink = ""
         
         switch apiType {
         case .followers:
-            apiLink = CompleteLink.followers.rawValue
+            apiLink = url+CompleteLink.followers.rawValue
         case .following:
-            apiLink = CompleteLink.following.rawValue
-        case .repo:
+            apiLink = url+CompleteLink.following.rawValue
+        case .repo,.gists:
             break
         }
         
@@ -55,14 +55,16 @@ final class Services{
     }
     
     //Handle Repository List
-    func RepoList(apiType:UserList,_ completion:@escaping(Result<[RepoData], Error>) -> Void){
+    func RepoList(url:String,apiType:UserList,_ completion:@escaping(Result<[RepoData], Error>) -> Void){
         var apiLink = ""
         
         switch apiType {
         case .followers, .following:
             break
         case .repo:
-            apiLink = CompleteLink.repo.rawValue
+            apiLink = url+CompleteLink.repo.rawValue
+        case .gists:
+            apiLink = url+CompleteLink.gists.rawValue
         }
         
         guard let url = URL(string: APIURL+apiLink) else {
@@ -94,8 +96,8 @@ final class Services{
     }
     
     //Handle Profile
-    func UserProfile(_ completion:@escaping(Result<GithubProfileModel, Error>) -> Void){
-        guard let url = URL(string: APIURL+CompleteLink.PROFILE.rawValue) else {
+    func UserProfile(url:String,_ completion:@escaping(Result<GithubProfileModel, Error>) -> Void){
+        guard let url = URL(string: APIURL+url) else {
             completion(.failure(NSError(domain: "Url not working", code: 0)))
             return
         }
@@ -116,7 +118,7 @@ final class Services{
                     print(#function, "📡 Data: \(String(describing: HandleData))")
                     completion(.success(HandleData))
                 } catch {
-                    print(#function, "🧨 Error on handle data: URL=> \(url)\n\(String(describing: error))")
+                    print(#function, "🧨 Error on handle data: URL=> \(url)\n\(String(describing: error.localizedDescription))")
                     completion(.failure(error))
                 }
             }
@@ -154,7 +156,8 @@ final class Services{
 enum CompleteLink:String{
     case USER = "/users"
     case PROFILE = "/user"
-    case followers = "/users/Innovatewithapple/followers"
-    case following = "/users/Innovatewithapple/following"
-    case repo = "/users/Innovatewithapple/repos"
+    case followers = "/followers"
+    case following = "/following"
+    case repo = "/repos"
+    case gists = "/gists"
 }

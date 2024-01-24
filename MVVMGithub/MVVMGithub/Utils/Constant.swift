@@ -15,6 +15,7 @@ struct Constant{
     static let TextColor = "#FFFBF5"//Cream white
     static let ThemeColor = "#BFD8AF"//Green
     static let Silver = "#F5F7F8"
+    static let backButtonColor = "#4F6F52"
     
      //SixColors
     static let firstColor = "#B2A4FF"//Light Blue
@@ -37,6 +38,6 @@ struct Constant{
     }
     
     //Auth
-    static let GithubAuthCode = "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"
+    static var GithubAuthCode = "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"
     static var UserName = ""
 }

@@ -10,3 +10,8 @@ import Foundation
 protocol GithubDelegates:AnyObject {
     func GetResponse(state:ViewStates)
 }
+
+protocol GithubNavigationdelegates:AnyObject{
+    func NavigateResponse(state:ViewStates)
+}
+

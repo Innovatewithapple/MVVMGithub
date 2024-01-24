@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class FollowersViewController: UIViewController, GithubDelegates {
+class FollowersViewController: BaseViewController, GithubDelegates {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -38,15 +39,21 @@ class FollowersViewController: UIViewController, GithubDelegates {
 
 //MARK: - TableView
 extension FollowersViewController:UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        switch self.APIType{
+        case.followers,.following,.repo:
+            return 80
+        case .gists:
+            return UITableView.automaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.APIType{
         case .followers, .following:
             return viewModel.numberOfItems
-        case .repo:
+        case .repo,.gists:
             return repoViewModel.numberOfItems
         }
     }
@@ -58,49 +65,26 @@ extension FollowersViewController:UITableViewDelegate, UITableViewDataSource {
             cell.configure(info: viewModel.getInfo(for: indexPath),APIType:.followers)
         case .repo:
             cell.configure(info: repoViewModel.getInfo(for: indexPath),APIType:.repo)
+        case .gists:
+            cell.configure(info: repoViewModel.getInfo(for: indexPath),APIType:.gists)
         }
         return cell
     }
-}
-
-//MARK: - Handle User-Interface
-extension FollowersViewController{
-    func HandleUserInterface() {
-        HandleTableViewAndNavigation()
-        
-        switch self.APIType{
-        case .followers, .following:
-            viewModel.delegate = self
-            viewModel.loadModel(API: self.APIType)
-        case .repo:
-            repoViewModel.delegate = self
-            repoViewModel.loadModel(API: self.APIType)
-        }
-    }
     
-    func HandleTableViewAndNavigation() {
-        self.tableView.registerCell(cellType: ImageTextTableViewCell.self)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.APIType{
         case .followers, .following:
-            self.viewModel.viewModelUpdated = { [weak self] in
-                self?.tableView.backgroundColor = self?.viewModel.tableViewColor
-                self?.title = self?.viewModel.navigationTitle
-                self?.navigationController?.navigationBar.prefersLargeTitles = false
-                self?.navigationController?.navigationBar.barTintColor = self?.viewModel.navigationBarBackgroundColor
-                self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: self?.viewModel.navigationTitleColor ]
-                self?.view.backgroundColor = self?.viewModel.navigationBarBackgroundColor
-            }
-        case .repo:
-            self.repoViewModel.viewModelUpdated = { [weak self] in
-                self?.tableView.backgroundColor = self?.repoViewModel.tableViewColor
-                self?.title = self?.repoViewModel.navigationTitle
-                self?.navigationController?.navigationBar.prefersLargeTitles = false
-                self?.navigationController?.navigationBar.barTintColor = self?.repoViewModel.navigationBarBackgroundColor
-                self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: self?.repoViewModel.navigationTitleColor ]
-                self?.view.backgroundColor = self?.repoViewModel.navigationBarBackgroundColor
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            let individualUser = viewModel.getInfo(for: indexPath)
+            vc.viewModel.username = "s/\(individualUser.name)"
+            self.navigationController?.pushViewController(vc, animated: true)
+        case .repo,.gists:
+            // Open the link in SafariViewController
+            let individualRepo = repoViewModel.getInfo(for: indexPath)
+            if let url = URL(string: individualRepo.avatar) {
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
             }
         }
     }

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, GithubDelegates {
+class ViewController: BaseViewController, GithubDelegates {
      
-    @IBOutlet weak var profileView:UIView!
+    @IBOutlet weak var profileView:RoundedBorderView!
     @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var nameLabel:UILabel!
     @IBOutlet weak var bioLabel:UILabel!
@@ -36,7 +36,11 @@ class ViewController: UIViewController, GithubDelegates {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       HandleUserInterface()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        HandleUserInterface()
     }
     
     func GetResponse(state: ViewStates) {
@@ -48,6 +52,10 @@ class ViewController: UIViewController, GithubDelegates {
                 break
             case .failure(_):
                 print("Error found")
+                self.showAlertWithTextField(title: "Alert!!!", message: "Please enter private key or visit Github Developer Settings to generate one.\nClick on Github", placeholder: "Enter Code...") { code in
+                    self.saveAuthCode(code: code ?? "")
+                    self.HandleUserInterface()
+                }
             case .loading:
                 print("Loading....")
             }

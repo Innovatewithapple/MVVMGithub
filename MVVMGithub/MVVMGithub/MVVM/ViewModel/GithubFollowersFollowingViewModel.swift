@@ -10,11 +10,12 @@ import UIKit
 
 final class GithubFollowersFollowingViewModel {
     
-   private var UsersList:[UsersData]? = nil
+    private var UsersList:[UsersData]? = nil
     
-   weak var delegate: GithubDelegates?
-    
-   private var currentState:ViewStates?
+    weak var delegate: GithubDelegates?
+    weak var navDelegate: GithubNavigationdelegates?
+    var username = "s/Innovatewithapple"
+    private var currentState:ViewStates?
     
     // Callback to notify the View of changes, including the navigation title
     var viewModelUpdated: (() -> Void)?
@@ -22,11 +23,12 @@ final class GithubFollowersFollowingViewModel {
     var navigationTitle: String = ""
     var tableViewColor: UIColor = .black
     var navigationBarBackgroundColor: UIColor = .black
-    
+    var navigationBackButtonColor: UIColor = .blue
     
     func loadModel(API:UserList){
         self.updateNavigationAndTableView()
-        Services.sharedInstance.UsersList(apiType: API, { results in
+        self.UsersList = nil
+        Services.sharedInstance.UsersList(url:username,apiType: API, { results in
             self.currentState = .loading
             switch results {
             case .success(let userData):
@@ -45,6 +47,7 @@ final class GithubFollowersFollowingViewModel {
         navigationTitleColor = UIColor(hexString: Constant.BackgroundColor)
         tableViewColor = UIColor(hexString: Constant.BackgroundColor)
         navigationBarBackgroundColor = UIColor(hexString: Constant.ThemeColor)
+        navigationBackButtonColor = UIColor(hexString: Constant.backButtonColor)
         viewModelUpdated?()
     }
 }
@@ -54,8 +57,8 @@ extension GithubFollowersFollowingViewModel{
         UsersList?.count ?? 0
     }
     
-    func getInfo(for indexPath:IndexPath) -> (name:String,avatar:String){
+    func getInfo(for indexPath:IndexPath) -> (name:String,avatar:String,desc:String){
         let users = UsersList?[indexPath.row]
-        return (name:users?.login ?? "", avatar:users?.avatarURL ?? "")
+        return (name:users?.login ?? "", avatar:users?.avatarURL ?? "",desc:"")
     }
 }

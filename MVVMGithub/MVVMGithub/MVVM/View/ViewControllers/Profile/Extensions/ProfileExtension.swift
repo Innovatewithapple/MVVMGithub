@@ -28,36 +28,62 @@ extension ViewController{
         self.gistsView.addGestureRecognizer(gistsTapGesture)
         let pRepoTapGesture = UITapGestureRecognizer(target: self, action: #selector(privateRepoAction))
         self.privateRepoView.addGestureRecognizer(pRepoTapGesture)
-        let collabTapGesture = UITapGestureRecognizer(target: self, action: #selector(collabAction))
-        self.collabView.addGestureRecognizer(collabTapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        // Set the number of taps required (5 in this case)
+        self.collabView.addGestureRecognizer(tapGesture)
     }
     
     @objc func followersAction(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
         vc.APIType = .followers
+        let getUsername = self.viewModel.GetInformation()
+        vc.viewModel.username = "/users/\(getUsername.username)"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func followingAction(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
         vc.APIType = .following
+        let getUsername = self.viewModel.GetInformation()
+        vc.viewModel.username = "/users/\(getUsername.username)"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func repoAction(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
         vc.APIType = .repo
+        let getUsername = self.viewModel.GetInformation()
+        vc.repoViewModel.username = "/users/\(getUsername.username)"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func gistsAction(){
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
+        vc.APIType = .gists
+        let getUsername = self.viewModel.GetInformation()
+        vc.repoViewModel.username = "/users/\(getUsername.username)"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func privateRepoAction(){
         
     }
     @objc func collabAction(){
-        
+       
+    }
+    
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        if self.tapCount >= 5{
+            self.tapCount = 0
+            self.showAlertWithTextField(title: "Alert!!!", message: "Please enter private key or visit Github Developer Settings to generate one.\nClick on Github", placeholder: "Enter Code...") { code in
+                self.saveAuthCode(code: code ?? "")
+                self.HandleUserInterface()
+                print("Long press ended")
+            }
+        } else {
+            self.tapCount += 1
+            print("count:-\(self.tapCount)")
+        }
     }
     
     func HandleTableViewAndNavigation() {
@@ -66,6 +92,8 @@ extension ViewController{
             self?.navigationController?.navigationBar.prefersLargeTitles = false
             self?.navigationController?.navigationBar.barTintColor = self?.viewModel.navigationBarBackgroundColor
             self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: self?.viewModel.navigationBarBackgroundColor ]
+            self?.navigationController?.navigationBar.tintColor = self?.viewModel.navigationBackButtonColor
+            self?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             self?.view.backgroundColor = self?.viewModel.cellBackgroundColor
             
             //Text
@@ -118,8 +146,11 @@ extension ViewController{
         Services.sharedInstance.HandleImage(imageURL: info.avatar) { image in
             if let image = image{
                 self.profileImageView.image = image
-                self.profileView.addRoundedCorners(radius: 60, borderWidth: 5, borderColor: UIColor(hexString: Constant.ThemeColor))
-                self.profileImageView.addRoundedCorners(radius: 60, borderWidth: 0, borderColor: UIColor.clear)
+//                self.profileView.addRoundedCorners(radius: 60, borderWidth: 5, borderColor: UIColor(hexString: Constant.ThemeColor))
+//                self.profileImageView.addRoundedCorners(radius: 60, borderWidth: 0, borderColor: UIColor.clear)
+                self.profileView.borderColor = UIColor(hexString: Constant.ThemeColor)
+                self.profileView.borderWidth = 5
+                self.profileView.cornerRadius = 60
             }
         }
         

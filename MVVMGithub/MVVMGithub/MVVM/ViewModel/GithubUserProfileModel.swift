@@ -12,6 +12,7 @@ final class GithubUserProfileViewModel{
     private var Profile: GithubProfileModel? = nil
     weak var delegate:GithubDelegates? 
     private var currentState:ViewStates?
+    var username = ""
     
     // Callback to notify the View of changes, including the navigation title
     var viewModelUpdated: (() -> Void)?
@@ -20,11 +21,13 @@ final class GithubUserProfileViewModel{
     var tableViewColor: UIColor = .black
     var cellBackgroundColor: UIColor = .black
     var navigationBarBackgroundColor: UIColor = .black
+    var navigationBackButtonColor: UIColor = .blue
     var silverColor : UIColor = .gray
     
     func loadModel(){
         self.updateNavigationAndTableView()
-        Services.sharedInstance.UserProfile { profileResponse in
+        self.Profile = nil
+        Services.sharedInstance.UserProfile(url:CompleteLink.PROFILE.rawValue+username, { profileResponse in
             self.currentState = .loading
             switch profileResponse{
             case .success(let data):
@@ -36,9 +39,9 @@ final class GithubUserProfileViewModel{
                 self.Profile = nil
                 self.currentState = .failure(err)
                 Constant.UserName = ""
-                self.delegate?.GetResponse(state: .success)
+                self.delegate?.GetResponse(state: .failure(err))
             }
-        }
+        })
     }
     
     func updateNavigationAndTableView(){
@@ -47,6 +50,7 @@ final class GithubUserProfileViewModel{
         tableViewColor = UIColor(hexString: Constant.BackgroundColor)
         navigationBarBackgroundColor = UIColor(hexString: Constant.ThemeColor)
         cellBackgroundColor = UIColor(hexString: Constant.CellBackgroundColor)
+        navigationBackButtonColor = UIColor(hexString: Constant.backButtonColor)
         silverColor = UIColor(hexString: Constant.Silver)
         viewModelUpdated?()
     }

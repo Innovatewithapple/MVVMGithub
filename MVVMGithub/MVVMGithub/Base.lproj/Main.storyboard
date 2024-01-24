@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBl-1j-crU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBl-1j-crU" customClass="RoundedBorderView" customModule="MVVMGithub" customModuleProvider="target">
                                 <rect key="frame" x="136.66666666666666" y="153" width="119.99999999999997" height="120"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yal-rs-dHX">
@@ -205,7 +205,7 @@
                         <outlet property="privateRepoLbl" destination="JhJ-I1-f2W" id="nx2-jt-gcq"/>
                         <outlet property="privateRepoView" destination="jTN-oR-UV4" id="hJ5-Be-sAN"/>
                         <outlet property="profileImageView" destination="Yal-rs-dHX" id="Yfn-or-xed"/>
-                        <outlet property="profileView" destination="oBl-1j-crU" id="T5y-N2-zQg"/>
+                        <outlet property="profileView" destination="oBl-1j-crU" id="vCC-lx-kr3"/>
                         <outlet property="repoLbl" destination="2pV-KF-yw4" id="KM2-oR-l7m"/>
                         <outlet property="repoView" destination="XFb-5e-iX3" id="xy2-F6-bvn"/>
                     </connections>

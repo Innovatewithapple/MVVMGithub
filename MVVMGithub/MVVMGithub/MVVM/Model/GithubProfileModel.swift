@@ -29,4 +29,20 @@ struct GithubProfileModel:Codable{
         case bio = "bio"
         case collab = "collaborators"
     }
+    
+    // Custom initializer to handle missing values
+       init(from decoder: Decoder) throws {
+           let container = try decoder.container(keyedBy: CodingKeys.self)
+
+           // Provide default values or handle missing keys here
+           username = try container.decode(String.self, forKey: .username)
+           avatar = try container.decode(String.self, forKey: .avatar)
+           followers = try container.decodeIfPresent(Int.self, forKey: .followers) ?? 0
+           following = try container.decodeIfPresent(Int.self, forKey: .following) ?? 0
+           repo = try container.decodeIfPresent(Int.self, forKey: .repo) ?? 0
+           privateRepo = try container.decodeIfPresent(Int.self, forKey: .privateRepo) ?? 0
+           gists = try container.decodeIfPresent(Int.self, forKey: .gists) ?? 0
+           bio = try container.decodeIfPresent(String.self, forKey: .bio) ?? ""
+           collab = try container.decodeIfPresent(Int.self, forKey: .collab) ?? 0
+       }
 }
